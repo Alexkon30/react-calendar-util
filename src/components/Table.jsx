@@ -9,12 +9,14 @@ export const Table = () => {
     const [, dispatch] = useContext(TableContext)
 
     return (
-        <React.Fragment>
+        <div className='wrap'>
+            <div className="wrap-scroll">
             <table>
                 <TableHeader/>
                 <TableBody/>
             </table>
             <input type="button" value="Add" onClick={() => dispatch(increaseIndexAction())}/>
-        </React.Fragment>
+            </div>
+        </div>
     );
 }

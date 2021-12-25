@@ -1,39 +1,44 @@
-import React, {useContext, useMemo} from 'react'
+import React, { useContext, useMemo } from 'react'
 import { TableRow } from './TableRow'
 import { TableContext } from '../TableContext'
 
 export const TableBody = () => {
-const [state,] = useContext(TableContext)
+    const [state,] = useContext(TableContext)
+    const {currentIndex, data, sortedBy, searchValue, mode} = state
 
-const tableData = useMemo(() => {
-    let result = state.data.filter((item, index) => index < state.currentIndex)
+    const tableData = useMemo(() => {
+        let result = data.filter((_, index) => index < currentIndex)
 
-    if (state.sortedBy === 'title') {
-        result.sort((a, b) => {
-            if (a.total < b.total) return -1
-            if (a.total > b.total) return 1
-            return 0
-        })
-    } else if (state.sortedBy !== null) {
-        result.sort((a, b) => {
-            if (a.Days[state.sortedBy].value < b.Days[state.sortedBy].value) return -1
-            if (a.Days[state.sortedBy].value > b.Days[state.sortedBy].value) return 1
-            return 0
-        })
-    } 
+        if (sortedBy === 'title') {
+            result.sort((a, b) => {
+                if (a.total < b.total) return -1
+                if (a.total > b.total) return 1
+                return 0
+            })
+        } else if (sortedBy !== null) {
+            result.sort((a, b) => {
+                if (a.Days[sortedBy].value < b.Days[sortedBy].value) return -1
+                if (a.Days[sortedBy].value > b.Days[sortedBy].value) return 1
+                return 0
+            })
+        }
 
-    if (state.searchValue) {
-        result = result.filter(item => item.Fullname.toLowerCase().includes(state.searchValue.toLowerCase()))
-    }
+        if (searchValue) {
+            result = result.filter(item => item.Fullname.toLowerCase().includes(searchValue.toLowerCase()))
+        }
 
-    return result
+        if (mode === 'reverse') {
+            result.reverse()
+        }
 
-}, [state.sortedBy, state.searchValue, state.currentIndex, state.data])
+        return result
+
+    }, [sortedBy, searchValue, currentIndex, data, mode])
 
 
     return (
         <tbody>
-            {tableData.map((row, index) => <TableRow row={row} key={row.id}/>)}
+            {tableData.map((row) => <TableRow row={row} key={row.id} />)}
         </tbody>
     )
 }

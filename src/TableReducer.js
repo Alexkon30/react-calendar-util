@@ -1,4 +1,3 @@
-// import { data } from "./data/data"
 import { normalizedData } from "./data/normalizedData"
 
 export const ActionTypes = {
@@ -9,20 +8,25 @@ export const ActionTypes = {
     INCREASE_INDEX: 'INCREASE_INDEX'
 }
 
-
-
 export const initialState = {
     data: normalizedData,
-    sortedBy: 30,
+    sortedBy: null,
     searchValue: '',
-    currentIndex: 10
+    currentIndex: 10,
+    mode: 'default'
 }
 
 export const reducer = (state, action) => {
     switch (action.type) {
         case ActionTypes.SET_SORT:
-            return {
-                ...state, sortedBy: action.payload
+            if (state.sortedBy === action.payload && state.mode !== 'reverse') {
+                return {
+                    ...state, mode: 'reverse'
+                }
+            } else {
+                return {
+                    ...state, sortedBy: action.payload, mode: 'default'
+                }
             }
         case ActionTypes.SET_SEARCH:
             return {
@@ -51,4 +55,3 @@ export const setSeacrhAction = (payload) => ({ type: ActionTypes.SET_SEARCH, pay
 export const resetSortAction = () => ({ type: ActionTypes.RESET_SORT })
 export const resetSeacrhAction = () => ({ type: ActionTypes.RESET_SEARCH })
 export const increaseIndexAction = () => ({ type: ActionTypes.INCREASE_INDEX })
-

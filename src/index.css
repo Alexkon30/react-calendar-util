@@ -2,15 +2,38 @@ body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
+  font-size: 20px;
+  background-color: rgb(230, 218, 169);
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+table tr th:first-child,
+table tr td:first-child,
+table tr th:last-child,
+table tr td:last-child {
+  position: absolute;
+}
+
+table tr th:first-child,
+table tr td:first-child {
+  left: 0;
+}
+
+table tr th:last-child,
+table tr td:last-child {
+  right: 0;
 }
 
 th {
-  padding: 3px;
-  border: 1px solid black;
+  padding: 10px 5px;
 }
 
 tbody tr:hover {
-  background-color: lightgray;
+  background-color: rgb(109, 158, 53);
 }
 
 thead th:hover {
@@ -18,5 +41,21 @@ thead th:hover {
 }
 
 .active {
-  background-color: lightgray;
+  background-color: rgb(109, 158, 53);
+}
+
+td {
+  text-align: center;
+  padding: 10px 5px;
+}
+
+.wrap {
+  position: relative;
+  /* padding: 0 200px; */
+}
+
+.wrap-scroll {
+  margin-left: 200px;
+  margin-right: 140px;
+  overflow: auto;
 }
